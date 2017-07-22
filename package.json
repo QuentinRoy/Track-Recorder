@@ -1,0 +1,58 @@
+{
+  "name": "trace-record-app",
+  "version": "0.0.0",
+  "description": "Application to record and export drags.",
+  "main": "build/index.html",
+  "scripts": {
+    "start": "webpack-dev-server --define process.env.NODE_ENV=\"'development'\" --config ./build-config/webpack.dev.js --progress",
+    "build": "NODE_ENV=production webpack --config ./build-config/webpack.prod.js --progress",
+    "serve": "serve ./build",
+    "test": "echo \"Error: no test specified\"",
+    "lint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/QuentinRoy/Trace-Record-App.git"
+  },
+  "keywords": ["drag", "export", "record", "gesture"],
+  "author": "Quentin Roy <quentin@quentinroy.fr>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babili-webpack-plugin": "^0.1.2",
+    "css-loader": "^0.28.4",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-import-resolver-webpack": "^0.8.3",
+    "eslint-plugin-html": "^3.1.1",
+    "eslint-plugin-import": "^2.7.0",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^2.29.0",
+    "node-sass": "^4.5.3",
+    "postcss-loader": "^2.0.6",
+    "postcss-smart-import": "^0.7.5",
+    "pug": "^2.0.0-rc.2",
+    "sass-lint": "^1.10.2",
+    "sass-loader": "^6.0.6",
+    "serve": "^6.0.2",
+    "vue-loader": "^12.2.2",
+    "vue-template-compiler": "^2.4.2",
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.5.1",
+    "webpack-merge": "^4.1.0"
+  },
+  "dependencies": {
+    "vue": "^2.4.2"
+  },
+  "config": {
+    "validate-commit-msg": {
+      "types": "conventional-commit-types"
+    }
+  },
+  "browserslist": ">5%"
+}
