@@ -8,7 +8,12 @@
     "build": "NODE_ENV=production webpack --config ./build-config/webpack.prod.js --progress",
     "serve": "serve ./build",
     "test": "NODE_ENV=test ava",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "release": "standard-version",
+    "git-hook": "npm run lint && npm run test",
+    "postrewrite": "npm run git-hook",
+    "precommit": "npm run git-hook",
+    "commitmsg": "validate-commit-msg"
   },
   "repository": {
     "type": "git",
@@ -39,6 +44,7 @@
     "eslint-plugin-import": "^2.7.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^2.29.0",
+    "husky": "^0.14.3",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.6",
     "postcss-smart-import": "^0.7.5",
@@ -46,6 +52,8 @@
     "sass-lint": "^1.10.2",
     "sass-loader": "^6.0.6",
     "serve": "^6.0.2",
+    "standard-version": "^4.2.0",
+    "validate-commit-msg": "^2.12.2",
     "vue-loader": "^12.2.2",
     "vue-template-compiler": "^2.4.2",
     "webpack": "^3.3.0",
