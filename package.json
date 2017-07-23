@@ -1,6 +1,6 @@
 {
   "name": "trace-record-app",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Application to record and export drags.",
   "main": "build/index.html",
   "scripts": {
