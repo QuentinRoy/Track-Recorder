@@ -12,7 +12,7 @@
   "settings": {
     "import/resolver": {
       "webpack": {
-        "config": "webpack.common.js"
+        "config": "build-config/webpack.common.js"
       }
     },
     "html/html-extensions": [".html", ".vue"]

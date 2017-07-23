@@ -7,18 +7,24 @@
     "start": "webpack-dev-server --define process.env.NODE_ENV=\"'development'\" --config ./build-config/webpack.dev.js --progress",
     "build": "NODE_ENV=production webpack --config ./build-config/webpack.prod.js --progress",
     "serve": "serve ./build",
-    "test": "echo \"Error: no test specified\"",
+    "test": "NODE_ENV=test ava",
     "lint": "eslint src"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/QuentinRoy/Trace-Record-App.git"
   },
-  "keywords": ["drag", "export", "record", "gesture"],
+  "keywords": [
+    "drag",
+    "export",
+    "record",
+    "gesture"
+  ],
   "author": "Quentin Roy <quentin@quentinroy.fr>",
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "ava": "^0.21.0",
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.1",
@@ -47,6 +53,9 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "downloadjs": "^1.4.7",
+    "raf-throttle": "^2.0.3",
+    "rxjs": "^5.4.2",
     "vue": "^2.4.2"
   },
   "config": {
@@ -54,5 +63,11 @@
       "types": "conventional-commit-types"
     }
   },
-  "browserslist": ">5%"
+  "browserslist": ">5%",
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
+  }
 }

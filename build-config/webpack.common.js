@@ -3,7 +3,6 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const hasNodeDepModules = require('./has-node-dep-modules');
-const babelConfig = require('./babelrc.js');
 
 const resolve = relPath => path.resolve(__dirname, relPath);
 
@@ -56,16 +55,14 @@ module.exports = {
         test: /\.m?js$/,
         include: resolve('../src'),
         use: {
-          loader: 'babel-loader',
-          options: babelConfig
+          loader: 'babel-loader'
         }
       },
       {
         test: /\.m?js$/,
         include: hasNodeDepModules,
         use: {
-          loader: 'babel-loader',
-          options: babelConfig
+          loader: 'babel-loader'
         }
       }
     ]
