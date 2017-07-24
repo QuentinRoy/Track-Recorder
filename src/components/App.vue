@@ -1,10 +1,10 @@
 <template lang="pug">
 .main
-  trace-canvas.canvas(:trace="trace" @drag="onDrag")
+  track-canvas.canvas(:track="track" @drag="onDrag")
   .controls
-    flat-button.button(@click="clearTrace")
+    flat-button.button(@click="clearTrack")
       | Clear
-    flat-button.button(@click="exportTrace")
+    flat-button.button(@click="exportTrack")
       | Export
 </template>
 
@@ -12,28 +12,28 @@
 import download from 'downloadjs';
 import csvify from '../csvify';
 import FlatButton from './FlatButton.vue';
-import TraceCanvas from './TraceCanvas.vue';
+import TrackCanvas from './TrackCanvas.vue';
 
-const normalizeTimeStamps = trace => {
-  if (trace.length === 0) return trace;
-  const start = trace[0].timeStamp;
-  return trace.map(e => Object.assign({}, e, { timeStamp: e.timeStamp - start }));
+const normalizeTimeStamps = track => {
+  if (track.length === 0) return track;
+  const start = track[0].timeStamp;
+  return track.map(e => Object.assign({}, e, { timeStamp: e.timeStamp - start }));
 };
 
 export default {
   data: () => ({
-    trace: []
+    track: []
   }),
-  components: { FlatButton, TraceCanvas },
+  components: { FlatButton, TrackCanvas },
   methods: {
-    exportTrace() {
-      download(csvify(normalizeTimeStamps(this.trace)), 'trace.csv', 'text/csv');
+    exportTrack() {
+      download(csvify(normalizeTimeStamps(this.track)), 'track.csv', 'text/csv');
     },
-    clearTrace() {
-      this.trace = [];
+    clearTrack() {
+      this.track = [];
     },
     onDrag(evt) {
-      this.trace = [...this.trace, evt];
+      this.track = [...this.track, evt];
     }
   }
 };

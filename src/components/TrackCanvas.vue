@@ -33,7 +33,7 @@ const createMouseEventRecord = (evt, { left = 0, top = 0, height = 0 } = {}) => 
 
 export default {
   props: {
-    trace: { type: Array, default: () => [] },
+    track: { type: Array, default: () => [] },
     startTime: { type: Number }
   },
   data: () => ({
@@ -75,7 +75,7 @@ export default {
       const ctx = this.$refs.canvas.getContext('2d');
       ctx.clearRect(0, 0, this.canvasRect.width, this.canvasRect.height);
       ctx.beginPath();
-      this.trace.forEach((e, i) => {
+      this.track.forEach((e, i) => {
         const pos = [e.x, this.canvasRect.height - e.y];
         if (e.type === 'start' || i === 0) {
           ctx.moveTo(...pos);
@@ -87,7 +87,7 @@ export default {
     })
   },
   watch: {
-    trace() {
+    track() {
       this.repaint();
     }
   }
