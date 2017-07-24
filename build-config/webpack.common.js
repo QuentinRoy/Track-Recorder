@@ -1,8 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
+const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const hasNodeDepModules = require('./has-node-dep-modules');
+const packageConfig = require('../package.json');
 
 const resolve = relPath => path.resolve(__dirname, relPath);
 
@@ -24,9 +26,7 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: {
-          extractCSS: true
-        }
+        options: { extractCSS: true }
       },
       {
         test: /\.s?css$/,
@@ -54,15 +54,18 @@ module.exports = {
       {
         test: /\.m?js$/,
         include: resolve('../src'),
-        use: {
-          loader: 'babel-loader'
-        }
+        use: { loader: 'babel-loader' }
       },
       {
         test: /\.m?js$/,
         include: hasNodeDepModules,
+        use: { loader: 'babel-loader' }
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/,
         use: {
-          loader: 'babel-loader'
+          loader: 'url-loader',
+          options: { limit: 8192 }
         }
       }
     ]
@@ -76,6 +79,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html'
+    }),
+    new webpack.DefinePlugin({
+      APP_VERSION: JSON.stringify(packageConfig.version)
     })
   ]
 };
