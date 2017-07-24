@@ -51,8 +51,6 @@ $shadow-color: rgba(0, 0, 0, .3);
 
   .canvas {
     flex-grow: 1;
-    width: 100%;
-    height: 100%;
   }
 
   .controls {
