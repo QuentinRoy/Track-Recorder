@@ -2,7 +2,7 @@
   "name": "track-recorder",
   "version": "1.1.1",
   "description": "Application to record and export drags.",
-  "main": "build/index.html",
+  "main": "build",
   "scripts": {
     "start": "webpack-dev-server --define process.env.NODE_ENV=\"'development'\" --config ./build-config/webpack.dev.js --progress",
     "build": "NODE_ENV=production webpack --config ./build-config/webpack.prod.js --progress",
