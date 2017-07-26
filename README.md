@@ -4,7 +4,7 @@ A small web application to draw 2D strokes and export them as csv files.
 
 ## Install
 
-This project requires [`node`](https://nodejs.org/en).
+This project requires [`node.js`](https://nodejs.org/en).
 
 ```sh
 git clone https://github.com/QuentinRoy/Track-Recorder.git
