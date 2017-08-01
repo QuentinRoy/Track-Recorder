@@ -11,9 +11,9 @@
       )
         img.github-logo(src="./github.svg" alt="github")
     .controls
-      flat-button.button(@click="clearTrack")
+      flat-button.button(@click="clearTrack" :disabled='empty')
         | Clear
-      flat-button.button(@click="exportTrack")
+      flat-button.button(@click="exportTrack" :disabled='empty')
         | Export
 </template>
 
@@ -36,6 +36,11 @@ export default {
     track: [],
     version: APP_VERSION
   }),
+  computed: {
+    empty() {
+      return !this.track.length;
+    }
+  },
   components: { FlatButton, TrackCanvas },
   methods: {
     exportTrack() {
