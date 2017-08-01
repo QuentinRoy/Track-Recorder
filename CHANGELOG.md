@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/QuentinRoy/Track-Recorder/compare/v1.2.0...v1.3.0) (2017-08-01)
+
+
+### Features
+
+* Disable the buttons when there is nothing to export or clear. ([7b2e3ab](https://github.com/QuentinRoy/Track-Recorder/commit/7b2e3ab))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/QuentinRoy/Track-Recorder/compare/v1.1.1...v1.2.0) (2017-07-24)
 
