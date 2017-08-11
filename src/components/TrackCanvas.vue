@@ -1,10 +1,10 @@
 <template lang="pug">
 canvas.canvas(
   ref="canvas"
-  @mousedown.prevent="onMouseEvent"
-  @mouseup.prevent="onMouseEvent"
-  @mouseout.prevent="onMouseEvent"
-  @mousemove.prevent="onMouseEvent"
+  @mousedown.prevent="onMouseStartEvent"
+  @mouseup.prevent="onMouseEndEvent"
+  @mouseout.prevent="onMouseEndEvent"
+  @mousemove.prevent="onMouseMoveEvent"
 )
 </template>
 
@@ -13,17 +13,10 @@ import rafThrottle from 'raf-throttle';
 
 const devicePixelRatio = window.devicePixelRatio || 1;
 
-// Map mouse event types to record types.
-const MOUSE_EVENT_TYPES = {
-  mousedown: 'start',
-  mouseup: 'end',
-  mouseout: 'end',
-  mousemove: 'move'
-};
 
 // Create a record from a mouse event.
-const createMouseEventRecord = (evt, { left = 0, top = 0, height = 0 } = {}) => ({
-  type: MOUSE_EVENT_TYPES[evt.type],
+const createMouseEventRecord = (evt, type, { left = 0, top = 0, height = 0 } = {}) => ({
+  type,
   x: evt.clientX - left,
   // Transform y origin to be at the bottom instead of the top.
   y: height - evt.clientY + top,
@@ -60,14 +53,19 @@ export default {
     this.repaint();
   },
   methods: {
-    onMouseEvent(evt) {
-      if (evt.type === 'mousedown') {
-        this.down = true;
-      }
+    onMouseMoveEvent(evt) {
       if (this.down) {
-        this.$emit('drag', createMouseEventRecord(evt, this.canvasRect));
+        this.$emit('drag', createMouseEventRecord(evt, 'move', this.canvasRect));
       }
-      if (evt.type === 'mouseup' || evt.type === 'mouseout') {
+    },
+    onMouseStartEvent(evt) {
+      this.down = true;
+      this.$emit('drag', createMouseEventRecord(evt, 'start', this.canvasRect));
+    },
+    onMouseEndEvent(evt) {
+      // This is also called on mouse out so we need to check if we were down in the first place.
+      if (this.down) {
+        this.$emit('drag', createMouseEventRecord(evt, 'end', this.canvasRect));
         this.down = false;
       }
     },
