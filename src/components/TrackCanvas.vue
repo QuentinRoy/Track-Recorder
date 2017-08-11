@@ -5,6 +5,10 @@ canvas.canvas(
   @mouseup.prevent="onMouseEndEvent"
   @mouseout.prevent="onMouseEndEvent"
   @mousemove.prevent="onMouseMoveEvent"
+  @touchstart.prevent="onTouchStartEvent"
+  @touchmove.prevent="onTouchMoveEvent"
+  @touchend.prevent="onTouchEndEvent"
+  @touchcancel.prevent="onTouchCancelEvent"
 )
 </template>
 
@@ -17,11 +21,28 @@ const devicePixelRatio = window.devicePixelRatio || 1;
 // Create a record from a mouse event.
 const createMouseEventRecord = (evt, type, { left = 0, top = 0, height = 0 } = {}) => ({
   type,
-  x: evt.clientX - left,
+  x: type === 'end' ? null : evt.clientX - left,
   // Transform y origin to be at the bottom instead of the top.
-  y: height - evt.clientY + top,
+  y: type === 'end' ? null : height - evt.clientY + top,
   timeStamp: evt.timeStamp,
-  device: 'mouse'
+  device: 'mouse',
+  pointerCount: 1
+});
+
+const getTouchesMean = (touches, coordName) =>
+  Array.prototype.reduce.call(
+    touches,
+    (sum, touch) => sum + touch[`client${coordName.toUpperCase()}`], 0
+  );
+
+const createTouchEventRecord = (evt, type, { left = 0, top = 0, height = 0 } = {}) => ({
+  type,
+  x: evt.touches.length > 0 ? getTouchesMean(evt.touches, 'x') - left : null,
+  // Transform y origin to be at the bottom instead of the top.
+  y: evt.touches.length > 0 ? height - getTouchesMean(evt.touches, 'y') + top : null,
+  timeStamp: evt.timeStamp,
+  device: 'touch',
+  pointerCount: evt.touches.length
 });
 
 export default {
@@ -69,6 +90,27 @@ export default {
         this.down = false;
       }
     },
+    onTouchMoveEvent(evt) {
+      this.$emit('drag', createTouchEventRecord(evt, 'move', this.canvasRect));
+    },
+    onTouchStartEvent(evt) {
+      const hadAlreadyStarted = this.down;
+      this.down = true;
+      this.$emit('drag', createTouchEventRecord(
+        evt,
+        hadAlreadyStarted ? 'new-pointer' : 'start',
+        this.canvasRect
+      ));
+    },
+    onTouchEndEvent(evt) {
+      const down = evt.touches.length > 0;
+      this.$emit('drag', createMouseEventRecord(
+        evt,
+        down ? 'pointer-left' : 'end',
+        this.canvasRect
+      ));
+      this.down = down;
+    },
     repaint: rafThrottle(function repaint() {
       const ctx = this.$refs.canvas.getContext('2d');
       ctx.clearRect(0, 0, this.canvasRect.width, this.canvasRect.height);
@@ -77,7 +119,7 @@ export default {
         const pos = [e.x, this.canvasRect.height - e.y];
         if (e.type === 'start' || i === 0) {
           ctx.moveTo(...pos);
-        } else {
+        } else if (e.type !== 'end') {
           ctx.lineTo(...pos);
         }
       });
