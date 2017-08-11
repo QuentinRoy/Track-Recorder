@@ -4,7 +4,10 @@
   .footer
     .info
       h1.title
-        | Track Recorder{{ version ? ` v${version}` : '' }}
+        | Track Recorder
+        |
+        span.version
+          | {{ version ? ` v${version}` : '' }}
       a.github-link(
         href="https://github.com/QuentinRoy/Track-Recorder"
         title="Github repository of the project"
@@ -100,14 +103,14 @@ $info-hovered-github-opacity: $info-title-opacity;
     .title {
       font: small-caps bolder 1em 'Open Sans', sans-serif;
       font-variant: small-caps;
-      margin: 0 .5em;
+      margin: 0 .2em;
       opacity: $info-title-opacity;
     }
 
     .github-link {
       display: block;
       padding: 0;
-      margin: 0 .2em;
+      margin: .5em .2em;
       text-decoration: none;
       height: $logo-height;
       opacity: $info-github-opacity;
@@ -119,6 +122,21 @@ $info-hovered-github-opacity: $info-title-opacity;
 
       &:hover {
         opacity: $info-hovered-github-opacity;
+      }
+    }
+
+    @media(max-width: 380px) {
+      align-self: flex-end;
+
+      .github-link {
+        display: none;
+      }
+
+      .title {
+        font-size: .7em;
+        .version {
+          display: none;
+        }
       }
     }
   }
