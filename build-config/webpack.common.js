@@ -10,7 +10,7 @@ const resolve = relPath => path.resolve(__dirname, relPath);
 
 module.exports = {
   entry: {
-    app: ['./index.js']
+    app: ['babel-polyfill', './index.js']
   },
   output: {
     path: resolve('../build'),
