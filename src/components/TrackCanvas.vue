@@ -33,7 +33,7 @@ const getTouchesMean = (touches, coordName) =>
   Array.prototype.reduce.call(
     touches,
     (sum, touch) => sum + touch[`client${coordName.toUpperCase()}`], 0
-  );
+  ) / touches.length;
 
 const createTouchEventRecord = (evt, type, { left = 0, top = 0, height = 0 } = {}) => ({
   type,
