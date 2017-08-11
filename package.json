@@ -1,6 +1,6 @@
 {
   "name": "track-recorder",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Application to record and export drags.",
   "main": "build",
   "scripts": {
