@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/QuentinRoy/Track-Recorder/compare/v2.0.0...v2.0.1) (2017-08-11)
+
+
+### Bug Fixes
+
+* Fix display on mobile devices. ([9b90c6d](https://github.com/QuentinRoy/Track-Recorder/commit/9b90c6d))
+* Fix multitouch coordinates. ([74ee35d](https://github.com/QuentinRoy/Track-Recorder/commit/74ee35d))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/QuentinRoy/Track-Recorder/compare/v1.3.0...v2.0.0) (2017-08-11)
 
