@@ -63,9 +63,11 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "csv-stringify": "^1.0.4",
     "downloadjs": "^1.4.7",
     "raf-throttle": "^2.0.3",
     "rxjs": "^5.4.2",
+    "util.promisify": "^1.0.0",
     "vue": "^2.4.2"
   },
   "config": {

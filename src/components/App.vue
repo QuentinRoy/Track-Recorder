@@ -20,10 +20,14 @@
 <script>
 /* global APP_VERSION */
 
+import promisify from 'util.promisify';
 import download from 'downloadjs';
-import csvify from '../csvify';
+import csvStringifyCb from 'csv-stringify';
 import FlatButton from './FlatButton.vue';
 import TrackCanvas from './TrackCanvas.vue';
+
+// Use bind as a workaround for an error on safari when applying promisify directly on csvStringify.
+const csvStringify = promisify(csvStringifyCb.bind());
 
 const normalizeTimeStamps = track => {
   if (track.length === 0) return track;
@@ -43,8 +47,10 @@ export default {
   },
   components: { FlatButton, TrackCanvas },
   methods: {
-    exportTrack() {
-      download(csvify(normalizeTimeStamps(this.track)), 'track.csv', 'text/csv');
+    async exportTrack() {
+      const normalizedTrack = normalizeTimeStamps(this.track);
+      const csvStr = await csvStringify(normalizedTrack, { header: true });
+      download(csvStr, 'track.csv', 'text/csv');
     },
     clearTrack() {
       this.track = [];
