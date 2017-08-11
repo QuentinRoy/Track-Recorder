@@ -55,25 +55,30 @@ export default {
     canvasRect: undefined
   }),
   mounted() {
-    this.canvasRect = this.$refs.canvas.getBoundingClientRect();
-    // Set up canvas with and height accordingly to its display size.
-    this.$refs.canvas.width = this.canvasRect.width * devicePixelRatio;
-    this.$refs.canvas.height = this.canvasRect.height * devicePixelRatio;
-    const ctx = this.$refs.canvas.getContext('2d');
-    // Adjust back the canvas width and height if it has changed.
-    if (devicePixelRatio !== 1) {
-      this.$refs.canvas.style.width = `${this.canvasRect.width}px`;
-      this.$refs.canvas.style.height = `${this.canvasRect.height}px`;
-      ctx.scale(devicePixelRatio, devicePixelRatio);
-    }
-    // Set up context parameters.
-    ctx.lineJoin = 'round';
-    ctx.lineCap = 'round';
-    ctx.lineWidth = 2;
-    // Init the paint.
-    this.repaint();
+    // Set up resize.
+    window.addEventListener('resize', this.setUpCanvasSize);
+    // Set up the size and repaint.
+    this.setUpCanvasSize();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.setUpCanvasSize);
   },
   methods: {
+    setUpCanvasSize: rafThrottle(function setUpCanvasSize() {
+      this.canvasRect = this.$refs.canvas.getBoundingClientRect();
+      // Set up canvas with and height accordingly to its display size.
+      this.$refs.canvas.width = this.canvasRect.width * devicePixelRatio;
+      this.$refs.canvas.height = this.canvasRect.height * devicePixelRatio;
+      const ctx = this.$refs.canvas.getContext('2d');
+      // Adjust back the canvas width and height if it has changed.
+      if (devicePixelRatio !== 1) {
+        this.$refs.canvas.style.width = `${this.canvasRect.width}px`;
+        this.$refs.canvas.style.height = `${this.canvasRect.height}px`;
+        ctx.scale(devicePixelRatio, devicePixelRatio);
+      }
+      // Init the paint.
+      this.repaintNow();
+    }),
     onMouseMoveEvent(evt) {
       if (this.down) {
         this.$emit('drag', createMouseEventRecord(evt, 'move', this.canvasRect));
@@ -112,8 +117,20 @@ export default {
       this.down = down;
     },
     repaint: rafThrottle(function repaint() {
+      this.repaintNow();
+    }),
+    repaintNow() {
       const ctx = this.$refs.canvas.getContext('2d');
+
+      // Set up context parameters.
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      ctx.lineWidth = 2;
+
+      // Clear the canvas.
       ctx.clearRect(0, 0, this.canvasRect.width, this.canvasRect.height);
+
+      // Draw the strokes.
       ctx.beginPath();
       this.track.forEach((e, i) => {
         const pos = [e.x, this.canvasRect.height - e.y];
@@ -124,7 +141,7 @@ export default {
         }
       });
       ctx.stroke();
-    })
+    }
   },
   watch: {
     track() {
