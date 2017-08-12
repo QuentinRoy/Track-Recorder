@@ -25,6 +25,14 @@ export default {
   },
   methods: {
     setUpCanvasSize: rafThrottle(function setUpCanvasSize() {
+      // Clear style and width.
+      this.$refs.canvas.width = '';
+      this.$refs.canvas.height = '';
+      if (devicePixelRatio !== 1) {
+        this.$refs.canvas.style.width = '';
+        this.$refs.canvas.style.height = '';
+      }
+      // Recalculate expected size (force reflow).
       this.rect = this.$refs.canvas.getBoundingClientRect();
       // Set up canvas with and height accordingly to its display size.
       this.$refs.canvas.width = this.rect.width * devicePixelRatio;
