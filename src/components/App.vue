@@ -59,7 +59,7 @@ export default {
       this.track = [];
     },
     onDrag(evt) {
-      this.track = [...this.track, evt];
+      this.track.push(evt);
     }
   }
 };
