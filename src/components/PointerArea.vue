@@ -26,11 +26,12 @@ export default {
   }),
   methods: {
     onPointerEvent(evt) {
+      const wasActive = this.active;
       this.active =
         (evt.type === 'mousedown') ||
         (evt.type === 'mousemove' && this.active) ||
         (evt.type.startsWith('touch') && evt.touches.length > 0);
-      if (this.active) {
+      if (this.active || wasActive) {
         const record = createPointerEventRecord(evt, this.$refs.canvas.rect);
         this.$emit('drag', record);
       }
