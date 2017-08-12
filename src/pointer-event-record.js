@@ -3,13 +3,14 @@ const EVENT_MAP = {
   mouseup: { type: 'end', device: 'mouse' },
   mouseout: { type: 'end', device: 'mouse' },
   mousemove: { type: 'move', device: 'mouse' },
-  touchstart: { type: 'start', device: 'mouse' },
-  touchmove: { type: 'move', device: 'mouse' },
-  touchend: { type: 'end', device: 'mouse' },
-  touchcancel: { type: 'end', device: 'mouse' }
+  touchstart: { type: 'start', device: 'touch' },
+  touchmove: { type: 'move', device: 'touch' },
+  touchend: { type: 'end', device: 'touch' },
+  touchcancel: { type: 'end', device: 'touch' }
 };
 
-const map = Array.prototype.map.call.bind();
+const map = (context, ...args) =>
+  Array.prototype.map.apply(context, args);
 
 // Get the mean value of a list of number
 const mean = list =>
