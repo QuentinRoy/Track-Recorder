@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.4"></a>
+## [2.0.4](https://github.com/QuentinRoy/Track-Recorder/compare/v2.0.3...v2.0.4) (2017-08-12)
+
+
+### Bug Fixes
+
+* Fix end rows being skipped. ([8a2ff8a](https://github.com/QuentinRoy/Track-Recorder/commit/8a2ff8a))
+* Fix touch logging. ([c58b5bd](https://github.com/QuentinRoy/Track-Recorder/commit/c58b5bd))
+
+
+
 <a name="2.0.3"></a>
 ## [2.0.3](https://github.com/QuentinRoy/Track-Recorder/compare/v2.0.2...v2.0.3) (2017-08-12)
 
