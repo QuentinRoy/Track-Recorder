@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.3"></a>
+## [2.0.3](https://github.com/QuentinRoy/Track-Recorder/compare/v2.0.2...v2.0.3) (2017-08-12)
+
+
+### Bug Fixes
+
+* Fix canvas resizing. ([9697975](https://github.com/QuentinRoy/Track-Recorder/commit/9697975))
+
+
+### Performance Improvements
+
+* Do not recreate the event list on each new event. ([939fe55](https://github.com/QuentinRoy/Track-Recorder/commit/939fe55))
+
+
+
 <a name="2.0.2"></a>
 ## [2.0.2](https://github.com/QuentinRoy/Track-Recorder/compare/v2.0.1...v2.0.2) (2017-08-11)
 
