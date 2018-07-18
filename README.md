@@ -4,18 +4,18 @@ A small web application to draw 2D strokes and export them as csv files.
 
 ## Install
 
-This project requires [`node.js`](https://nodejs.org/en).
+This project requires [`node.js`](https://nodejs.org) and [`yarn`](https://yarnpkg.com).
 
 ```sh
 git clone https://github.com/QuentinRoy/Track-Recorder.git
 cd Track-Recorder
-npm install
+yarn install
 ```
 
 ## Build
 
 ```sh
-npm run build
+yarn build
 ```
 
 Creates the `build` directory containing the application's files.
@@ -23,5 +23,5 @@ Creates the `build` directory containing the application's files.
 ## Serve
 
 ```sh
-npm run serve
+yarn serve
 ```
