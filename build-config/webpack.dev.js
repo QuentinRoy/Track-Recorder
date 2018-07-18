@@ -7,6 +7,7 @@ const commonConfig = require('./webpack.common.js');
 const resolve = relPath => path.resolve(__dirname, relPath);
 
 module.exports = merge(commonConfig, {
+  mode: 'development',
   devtool: 'inline-source-map',
   entry: {
     app: [

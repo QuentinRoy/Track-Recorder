@@ -9,12 +9,10 @@ const EVENT_MAP = {
   touchcancel: { type: 'end', device: 'touch' }
 };
 
-const map = (context, ...args) =>
-  Array.prototype.map.apply(context, args);
+const map = (context, ...args) => Array.prototype.map.apply(context, args);
 
 // Get the mean value of a list of number
-const mean = list =>
-  Array.prototype.reduce.call(list, (sum, x) => sum + x, 0) / list.length;
+const mean = list => Array.prototype.reduce.call(list, (sum, x) => sum + x, 0) / list.length;
 
 const getPointerEventXY = (evt, device, type) => {
   if (type === 'end') return null;

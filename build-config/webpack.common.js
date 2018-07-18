@@ -1,8 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const hasNodeDepModules = require('./has-node-dep-modules');
 const packageConfig = require('../package.json');
 
@@ -25,31 +26,29 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: { extractCSS: true }
+        loader: 'vue-loader'
       },
       {
         test: /\.s?css$/,
         include: resolve('../src'),
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: { sourceMap: true }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: true,
-                config: { path: resolve('./postcss.config.js') }
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: { sourceMap: true }
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: { sourceMap: true }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+              config: { path: resolve('./postcss.config.js') }
             }
-          ]
-        })
+          },
+          {
+            loader: 'sass-loader',
+            options: { sourceMap: true }
+          }
+        ]
       },
       {
         test: /\.m?js$/,
@@ -67,14 +66,19 @@ module.exports = {
           loader: 'url-loader',
           options: { limit: 8192 }
         }
+      },
+      {
+        test: /\.pug$/,
+        loader: 'pug-plain-loader'
       }
     ]
   },
   plugins: [
-    new ExtractTextPlugin({
-      filename: '[name].css',
-      disable: false,
-      allChunks: true
+    new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name].css'
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',

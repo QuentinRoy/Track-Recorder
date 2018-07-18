@@ -1,6 +1,6 @@
 <template lang="pug">
-  button.big-flat-button(@click="evt => $emit('click', evt)")
-    slot
+button.big-flat-button(@click="evt => $emit('click', evt)")
+  slot
 </template>
 
 <style lang="scss" scoped>
